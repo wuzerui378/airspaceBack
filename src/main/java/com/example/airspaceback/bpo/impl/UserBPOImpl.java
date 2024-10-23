@@ -6,6 +6,8 @@ import com.example.airspaceback.entity.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserBPOImpl implements UserBPO {
     @Autowired
@@ -16,16 +18,61 @@ public class UserBPOImpl implements UserBPO {
         if (userBlo.getUserByUsername(user.getUsername()) != null) {
             return false;
         }
+        // 设置默认角色为普通用户
+        if (user.getRole() == null || user.getRole().isEmpty()) {
+            user.setRole("USER");
+        }
 
-        return userBlo.saveUser(user);
-    }
+        // 设置默认状态
+        user.setStatus("ACTIVE");
 
-    public boolean login(String username, String password) {
-        Users user = userBlo.getUserByUsername(username);
-        if (user == null) {
+        try {
+            userBlo.saveUser(user);
+            return true;
+        } catch (Exception e) {
             return false;
         }
-        // 注意：这里应该添加密码验证逻辑
-        return user.getPassword().equals(password);
+    }
+
+    public Users login(String username, String password) {
+        Users user = userBlo.getUserByUsername(username);
+        if (user != null && user.getPassword().equals(password)) {
+            // 检查用户状态
+            if ("blocked".equals(user.getStatus())) {
+                return null;  // 用户被封禁
+            }
+            return user;
+        }
+        return null;
+    }
+
+    @Override
+    public List<Users> getAllUsers() {
+        return userBlo.getAllUsers();
+    }
+
+    @Override
+    public boolean updateUserStatus(Long userId, String status) {
+        Users user = userBlo.getUserById(userId);
+        if (user != null) {
+            user.setStatus(status);
+            return userBlo.saveUser(user);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean updateUserRole(Long userId, String role) {
+        Users user = userBlo.getUserById(userId);
+        if (user != null) {
+            user.setRole(role);
+            return userBlo.saveUser(user);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean deleteUser(Long userId) {
+        return userBlo.deleteUser(userId);
     }
 }

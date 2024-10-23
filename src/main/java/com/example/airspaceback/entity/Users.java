@@ -1,9 +1,10 @@
 package com.example.airspaceback.entity;
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
-
+@Data
 @Entity
 @Table(name = "users")
 public class Users {
@@ -17,6 +18,8 @@ public class Users {
     @Column(nullable = false)
     private String password;
 
+    private String role;  // 添加角色字段
+
 
     private String email;
 
@@ -24,51 +27,7 @@ public class Users {
 
     private LocalDateTime createTime;
 
-    public String getUsername() {
-        return username;
-    }
+    private String status = "active";  // 默认状态为激活
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public LocalDateTime getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
-    }
 }
