@@ -14,25 +14,30 @@ public class AirspaceCapacity {
     private Long id;
 
     @Column(nullable = false)
-    private Double delta_ij;
+    private Double availableVolume;
 
     @Column(nullable = false)
-    private Double gamma;
+    private Double safetyInterval;
 
     @Column(nullable = false)
-    private Double sigma_o;
+    private Double safetyFactor;
 
     @Column(nullable = false)
-    private Double pv;
+    private Double restrictedAirspaceRatio;
 
     @Column(nullable = false)
-    private Double Tm;
+    private Double efficiencyFactor;
+
+    @Column(nullable = false)
+    private Double aircraftVolume;
 
     // 计算结果
     private Double calculatedCapacity;
 
+    private int maxFlights;
+
     // 添加其他必要的字段,如创建时间、修改时间等
     private LocalDateTime createTime;
-    private LocalDateTime updateTime;
+
 
 }

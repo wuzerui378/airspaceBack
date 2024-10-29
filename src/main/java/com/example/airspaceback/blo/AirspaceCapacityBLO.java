@@ -1,5 +1,6 @@
 package com.example.airspaceback.blo;
 
+import com.example.airspaceback.dto.AirspaceCapacityDTO;
 import com.example.airspaceback.entity.AirspaceCapacity;
 
 /**
@@ -8,5 +9,5 @@ import com.example.airspaceback.entity.AirspaceCapacity;
  * @date 2024-10-24 09:54
  */
 public interface AirspaceCapacityBLO {
-    AirspaceCapacity saveAirspaceCapacity(AirspaceCapacity airspaceCapacity);
+    AirspaceCapacityDTO saveAirspaceCapacity(AirspaceCapacity airspaceCapacity);
 }
