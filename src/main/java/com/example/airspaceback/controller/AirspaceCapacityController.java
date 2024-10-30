@@ -81,5 +81,26 @@ public class AirspaceCapacityController {
         }
     }
 
+    @DeleteMapping("/deleteAll")
+    public ResponseEntity<?> deleteAllCapacityRecords() {
+        try {
+            // 删除所有记录
+            airspaceCapacityBPO.deleteAllAirspaceCapacity();
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("status", "success");
+            response.put("message", "所有空域容量记录已成功删除");
+
+            return ResponseEntity.ok(response);
+
+        } catch (Exception e) {
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("status", "error");
+            errorResponse.put("message", "删除记录过程中发生错误: " + e.getMessage());
+
+            return ResponseEntity.badRequest().body(errorResponse);
+        }
+    }
+
 
 }

@@ -5,6 +5,7 @@ import com.example.airspaceback.bpo.AirspaceCapacityBPO;
 import com.example.airspaceback.dto.AirspaceCapacityDTO;
 import com.example.airspaceback.entity.AirspaceCapacity;
 import com.example.airspaceback.repository.AirspaceCapacityRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,6 +55,12 @@ public class AirspaceCapacityBPOImpl implements AirspaceCapacityBPO {
                 return dto;
             })
             .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional
+    public void deleteAllAirspaceCapacity() {
+        airspaceCapacityRepository.deleteAll();
     }
 
 }

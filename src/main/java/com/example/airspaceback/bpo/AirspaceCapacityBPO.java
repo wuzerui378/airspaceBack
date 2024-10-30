@@ -10,4 +10,7 @@ public interface AirspaceCapacityBPO {
 
     // 添加查询所有记录的方法
     List<AirspaceCapacityDTO> findAllAirspaceCapacity();
+
+    // 添加删除所有记录的方法
+    void deleteAllAirspaceCapacity();
 }
